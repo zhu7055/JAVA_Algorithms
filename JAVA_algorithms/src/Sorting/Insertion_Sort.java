@@ -12,36 +12,43 @@ package Sorting;
 
 public class Insertion_Sort {
 
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		int [] arr= {100,52,67,5,1,13,91,42};
-		int n=arr.length; //取得arr的length
-		System.out.print("Unsorted array: ");
-		for(int value: arr) {
-			System.out.print(value+" ");
-		}
-		for(int i=1;i<n;i++)
-		{
-			int index=i;
-			int current=arr[i];
-			int j=i-1;
-			while(j>=0 && arr[j]>current) {
-				arr[j+1]=arr[j];
-				index=j;
-				j--;
-			}
-			arr[index]=current;
-		}
-		System.out.print("\nSorted array: ");
-		for(int value: arr) {
-			System.out.print(value+" ");
-		}
+    /**
+     * 使用插入排序演算法對整數陣列進行排序。
+     *
+     * @param arr 要排序的整數陣列。
+     */
+    public static void insertionSort(int[] arr) {
+        int n = arr.length;
+        for (int i = 1; i < n; i++) {
+            int current = arr[i]; // 儲存當前要插入的值
+            int j = i - 1;       // 從已排序部分的末尾開始比較
 
-		}
+            // 將比 current 大的元素向後移動一個位置
+            while (j >= 0 && arr[j] > current) {
+                arr[j + 1] = arr[j]; // 元素後移
+                j--;
+            }
+            arr[j + 1] = current; // 將 current 插入到正確的位置
+        }
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {100, 52, 67, 5, 1, 13, 91, 42};
+
+        System.out.print("未排序陣列: ");
+        for (int value : arr) {
+            System.out.print(value + " ");
+        }
+
+        // 呼叫 insertionSort 函式進行排序
+        insertionSort(arr);
+
+        System.out.print("\n已排序陣列: ");
+        for (int value : arr) {
+            System.out.print(value + " ");
+        }
+    }
 }
 //output:
-//Unsorted array: 100 52 67 5 1 13 91 42
-//Sorted array: 1 5 13 42 52 67 91 100
+//未排序陣列: 100 52 67 5 1 13 91 42
+//已排序陣列: 1 5 13 42 52 67 91 100
