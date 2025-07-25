@@ -1,0 +1,51 @@
+# 這個是 GitHub Actions 工作流程的名稱
+name: Java 語法檢查 (Eclipse 專案)
+
+# 這個區塊定義了什麼時候會觸發這個工作流程
+on:
+  push:
+    branches: [ "main" ] # 當程式碼被推送到 'main' 分支時，觸發執行
+    paths:                # 只有當 .java 檔案有變動時才觸發，避免不必要的運行
+      - '**/*.java'       # 匹配所有子目錄下的 .java 檔案
+  pull_request:
+    branches: [ "main" ] # 當有 Pull Request (PR) 到 'main' 分支時，觸發執行
+    paths:
+      - '**/*.java'
+
+# 定義一個或多個「工作」(jobs)
+jobs:
+  check_syntax: # 這個工作的名稱
+    runs-on: ubuntu-latest # 這個工作會在一個基於 Ubuntu 的虛擬機器上執行
+
+    # 這個工作的「步驟」(steps)
+    steps:
+    - uses: actions/checkout@v4 # 步驟 1: 下載您的 GitHub Repository 程式碼
+      name: 下載Repository程式碼
+
+    - name: 設定 Java 開發環境 (JDK 17) # 步驟 2: 安裝指定版本的 Java Development Kit (JDK)
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17' # 請根據您的 Eclipse 專案實際使用的 Java 版本修改 (例如 '8', '11', '21')
+        distribution: 'temurin'
+
+    - name: 檢查 Java 語法 # 步驟 3: 編譯所有 Java 檔案以檢查語法錯誤
+      # 說明：
+      # 'mkdir -p bin'：建立一個名為 'bin' 的資料夾，用於存放編譯後的 .class 檔案。
+      #                即使我們不運行程式，編譯時還是需要一個輸出目錄。
+      # 'find . -name "*.java" -print | xargs javac -d bin'：
+      #   - 'find . -name "*.java"': 在當前目錄 ('.') 及其所有子資料夾中，尋找所有副檔名是 '.java' 的檔案。
+      #   - '| xargs javac -d bin': 把找到的每一個 .java 檔案名作為參數，傳給 'javac' 命令來編譯。
+      #     '-d bin' 告訴 javac 把編譯好的 '.class' 檔案輸出到 'bin' 資料夾。
+      #
+      # 如果任何一個 .java 檔案有語法錯誤，'javac' 命令就會失敗，這個步驟就會標記為失敗，
+      # 同時整個 GitHub Actions 工作流程也會標記為失敗，並顯示錯誤訊息。
+      # 如果所有檔案語法都正確，這個步驟就會成功。
+      #
+      # 重要：如果您所有的 .java 檔案都在一個特定的子資料夾中 (例如 'src')，
+      #      那麼您應該把 'find .' 改為 'find src'。
+      #      例如：find src -name "*.java" -print | xargs javac -d bin
+      run: |
+        mkdir -p bin
+        find . -name "*.java" -print | xargs javac -d bin
+
+    # 這裡我們不添加任何執行程式碼的步驟，因為您的需求只是檢查語法。
