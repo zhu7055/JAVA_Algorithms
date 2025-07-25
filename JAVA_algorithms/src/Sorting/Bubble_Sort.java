@@ -6,9 +6,11 @@ package Sorting;
 /**
  *
  */
-//1.具有要排序的值的數組。
-//2.一個內迴圈,該迴圈遍歷數組並在第一個值高於下一個值時交換值。該循環每次運行時必須循環通過少一個值。
-//3.控制內迴圈必須運行多少次的外環。對於具有 n 值的數組,該外循環必須運行 n-1 次。
+//1.遍歷數組,一次一個。
+//2.對於每個值,將該值與下一個值進行比較。
+//3.如果該值高於下一個值,請交換這些值,以便最高值排在最後。
+//4.遍歷數組的次數與數組中的值一樣多。
+
 public class Bubble_Sort {
 
 	/**
@@ -41,7 +43,7 @@ public class Bubble_Sort {
             System.out.print(value + " ");
         }
 
-        // 呼叫 insertionSort 函式進行排序
+        // 呼叫 bubbleSort 函式進行排序
         bubbleSort(arr);
 
         System.out.print("\n已排序陣列(Bubble Sort): ");
