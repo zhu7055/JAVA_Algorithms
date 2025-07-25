@@ -21,7 +21,7 @@ public class Insertion_Sort {
         int n = arr.length;
         for (int i = 1; i < n; i++) {
             int current = arr[i]; // 儲存當前要插入的值
-            int j = i - 1;       // 從已排序部分的末尾開始比較
+            int j = i - 1;       // 從已排序部分的後面開始比較
 
             // 將比 current 大的元素向後移動一個位置
             while (j >= 0 && arr[j] > current) {
