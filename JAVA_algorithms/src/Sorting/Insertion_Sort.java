@@ -41,6 +41,7 @@ public class Insertion_Sort {
 		}
 
 		}
-
-
 }
+//output:
+//Unsorted array: 100 52 67 5 1 13 91 42
+//Sorted array: 1 5 13 42 52 67 91 100
