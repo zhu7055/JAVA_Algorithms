@@ -43,7 +43,7 @@ public class Insertion_Sort {
         // 呼叫 insertionSort 函式進行排序
         insertionSort(arr);
 
-        System.out.print("\n已排序陣列: ");
+        System.out.print("\n已排序陣列(Insertion Sort): ");
         for (int value : arr) {
             System.out.print(value + " ");
         }
