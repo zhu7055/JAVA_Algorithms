@@ -46,7 +46,7 @@ public class Bubble_Sort {
         // 呼叫 bubbleSort 函式進行排序
         bubbleSort(arr);
 
-        System.out.print("\n已排序陣列(Bubble Sort): ");
+        System.out.print("\n(Bubble Sort)\n已排序陣列: ");
         for (int value : arr) {
             System.out.print(value + " ");
         }
