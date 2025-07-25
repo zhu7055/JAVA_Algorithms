@@ -1,63 +1,34 @@
+#  GitHub Actions 工作流程的名稱
+name: Java 演算法程式碼自動化建構與執行 - 無套件主類別
 
-name: Java 演算法程式碼自動化建構與執行
-
-# 定義了什麼時候會觸發這個工作流程
 on:
   push:
     branches: [ "main" ] # 當程式碼被推送到 'main' 分支時，觸發執行
   pull_request:
     branches: [ "main" ] # 當有 Pull Request (PR) 到 'main' 分支時，觸發執行
 
-# 定義一個或多個「工作」(jobs)
 jobs:
-  build_and_run: # 這個工作的名稱，可以自定義
+  build_and_run:
     runs-on: ubuntu-latest # 這個工作會在一個基於 Ubuntu 的虛擬機器上執行
 
-    # 這個工作的「步驟」(steps)
     steps:
-    - uses: actions/checkout@v4 # 步驟 1: 下載您的 GitHub Repository 程式碼到虛擬機器上
+    - uses: actions/checkout@v4
       name: 下載Repository程式碼
 
-    - name: 設定 Java 開發環境 (JDK 17) # 步驟 2: 安裝指定版本的 Java Development Kit (JDK)
-      uses: actions/setup-java@v4 # 使用 GitHub 提供的 'setup-java' Action 來安裝 JDK
+    - name: 設定 Java 開發環境 (JDK 17)
+      uses: actions/setup-java@v4
       with:
-        java-version: '17' # 設定 Java 版本為 17。如果您的 Eclipse 專案使用不同版本 (例如 8 或 11)，請修改此處
-        distribution: 'temurin' # 推薦使用 Temurin (Eclipse Adoptium) 發行版
+        java-version: '17' # 請根據您的 Eclipse 專案實際使用的 Java 版本修改
+        distribution: 'temurin'
 
-    - name: 編譯 Java 程式碼 # 步驟 3: 使用 Java 編譯器 (javac) 編譯您的 .java 原始碼
-      # 說明：
-      # 'mkdir -p bin'：建立一個名為 'bin' 的資料夾。我們將把編譯好的 .class 檔案放在這裡。
-      # 'find . -name "*.java" -print | xargs javac -d bin'：
-      #   - 'find . -name "*.java"': 在當前目錄 ('.') 及其所有子資料夾中，尋找所有副檔名是 '.java' 的檔案。
-      #   - '| xargs javac -d bin': 把找到的每一個 .java 檔案名作為參數，傳給 'javac' 命令來編譯。
-      #     '-d bin' 告訴 javac 把編譯好的 '.class' 檔案輸出到 'bin' 資料夾。
-      #
-      # 重要：如果您所有的 .java 檔案都在一個特定的子資料夾中 (例如 'src')，
-      #      那麼您應該把 'find .' 改為 'find src'。
-      #      例如：find src -name "*.java" -print | xargs javac -d bin
+    - name: 編譯 Java 程式碼
       run: |
         mkdir -p bin
+        # 如果您的 .java 檔案都在 'src' 資料夾，請將下一行改為：find src -name "*.java" -print | xargs javac -d bin
         find . -name "*.java" -print | xargs javac -d bin
 
-    - name: 執行您的 Java 演算法程式碼 # 步驟 4: 使用 Java 虛擬機器 (java) 執行您編譯好的程式
-      # 說明：
-      # 'java -cp bin'：啟動 Java 虛擬機器，並將 'bin' 資料夾添加到類別路徑 (classpath) 中。
-      #                這樣 Java 才能找到您編譯好的 .class 檔案。
-      # 'your.package.MainClass'：<--- !!! 這是您**必須要修改**的地方 !!!
-      #     您需要將 'your.package.MainClass' 替換為您專案中**包含 `public static void main(String[] args)` 方法的那個類別的「完整名稱」**。
-      #     這個類別就是您在 Eclipse 中，通常會右鍵點擊它，然後選擇「Run As」->「Java Application」的那個檔案所對應的類別。
-      #
-      #     如何找到「完整名稱」：
-      #     1. 打開您在 Eclipse 中要執行那個 Java 檔案。
-      #     2. 檢查檔案最開頭，有沒有 `package` 宣告。
-      #        - 如果有：`package com.myalgorithms.solutions;`
-      #                  而您的類別名稱是 `AlgorithmRunner`。
-      #                  那麼完整名稱就是 `com.myalgorithms.solutions.AlgorithmRunner`。
-      #        - 如果沒有：(代表它在預設套件中)
-      #                  而您的類別名稱是 `MainProgram`。
-      #                  那麼完整名稱就是 `MainProgram`。
-      run: java -cp bin your.package.MainClass # <--- !!! 請務必修改此行 !!!
-
-    # 如果您的演算法程式碼有單元測試 (例如用 JUnit)，您可以考慮在下面添加額外的步驟來執行它們。
-    # 這通常會需要下載 JUnit 的 .jar 檔案，並使用 JUnit 的執行器來運行測試。
-    # 由於您的專案沒有 Maven 或 Gradle，這部分會比較複雜，如果您有需要，我們可以再深入討論。
+    - name: 執行您的 Java 演算法程式碼 # 重要：這裡假設您的主類別沒有 package 宣告
+      # 請根據您實際的主類別名稱，從 Main, Solution, Algorithm 中選擇一個，或替換成您自己的名稱
+      # 例如，如果您的主類別檔案是 `MyAlgorithm.java`，內容是 `public class MyAlgorithm { ... main ... }`，
+      # 那麼這裡就寫 `MyAlgorithm`
+      run: java -cp bin Main # <-- 這裡已修改為 'Main'，請依實際情況替換為您的主類別名稱
