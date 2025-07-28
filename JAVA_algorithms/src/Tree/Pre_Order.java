@@ -49,8 +49,8 @@ public class Pre_Order {
         //      / \    / \
         //     D   C  G   E
         //
-        // 注意：原始程式碼中的 nodeF.left = nodeF; 是一個無限循環，
-        // 這裡將其修正為一個獨立的節點，通常在樹中節點不會指向自己。
+        
+        // 通常在樹中節點不會指向自己。
 
 
         root.left = nodeA;   // Root 的left是 A
