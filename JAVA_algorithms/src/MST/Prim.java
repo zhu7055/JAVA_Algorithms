@@ -1,7 +1,7 @@
 package MST;
 
 import java.util.*;
-import java.util.Random;
+
 public class Prim {
     // Graph 類別：表示圖的結構和執行 Prim 演算法
     private static class Graph {
