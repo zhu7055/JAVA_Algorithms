@@ -2,7 +2,7 @@ package Searching;
 //線性搜尋
 /*1.搜尋target
 2.從index 0到後面
-3.若發現array裡面有值和target相同
+3.若發現array裡面有數值和target相同
 4.回傳index*/
 
 public class Linear_Search {
