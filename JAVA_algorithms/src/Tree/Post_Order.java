@@ -67,6 +67,7 @@ public class Post_Order {
 		        PostOrderTraversal(root); // 從根節點開始走訪
 				}
 			}
-/*中序走訪結果:
+/*後序走訪結果:
 D, C, A, G, E, B, Root, */
+
 
