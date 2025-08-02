@@ -62,11 +62,12 @@ public class Post_Order {
 
 
 
-		        // 執行前序走訪
+		        // 執行後序走訪
 		        System.out.println("後序走訪結果:");
 		        PostOrderTraversal(root); // 從根節點開始走訪
 				}
 			}
 /*後序走訪結果:
 D, C, A, G, E, B, Root, */
+
 
