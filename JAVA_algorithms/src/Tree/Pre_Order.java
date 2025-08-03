@@ -42,15 +42,15 @@ public class Pre_Order {
         TreeNode nodeG = new TreeNode("G");
 
         // 建構樹的結構
-        // 根據您提供的圖示，樹的結構如下：
+        // 樹的結構如下：
         //         Root
         //        /    \
         //       A      B
         //      / \    / \
         //     D   C  G   E
         //
-        
-        // 這裡將其修正為一個獨立的節點，通常在樹中節點不會指向自己。
+
+
 
 
         root.left = nodeA;   // Root 的left是 A

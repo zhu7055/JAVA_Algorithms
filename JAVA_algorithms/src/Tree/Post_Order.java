@@ -40,7 +40,7 @@ public class Post_Order {
 		        TreeNode nodeG = new TreeNode("G");
 
 		        // 建構樹的結構
-		        // 根據您提供的圖示，樹的結構如下：
+		        // 樹的結構如下：
 		        //         Root
 		        //        /    \
 		        //       A      B
@@ -48,7 +48,6 @@ public class Post_Order {
 		        //     D   C  G   E
 		        //
 
-		        // 這裡將其修正為一個獨立的節點，通常在樹中節點不會指向自己。
 
 
 		        root.left = nodeA;   // Root 的left是 A
@@ -62,12 +61,11 @@ public class Post_Order {
 
 
 
-		        // 執行後序走訪
+		        // 執行前序走訪
 		        System.out.println("後序走訪結果:");
 		        PostOrderTraversal(root); // 從根節點開始走訪
 				}
 			}
 /*後序走訪結果:
 D, C, A, G, E, B, Root, */
-
 
