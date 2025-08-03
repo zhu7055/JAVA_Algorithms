@@ -1,7 +1,7 @@
-# 這個是 GitHub Actions 工作流程的名稱
+# GitHub Actions 工作流程的名稱
 name: Java 語法檢查 (Eclipse 專案)
 
-# 這個區塊定義了什麼時候會觸發這個工作流程
+# 定義了什麼時候會觸發這個工作流程
 on:
   push:
     branches: [ "main" ] # 當程式碼被推送到 'main' 分支時，觸發執行
@@ -14,8 +14,8 @@ on:
 
 # 定義一個或多個「工作」(jobs)
 jobs:
-  check_syntax: # 這個工作的名稱
-    runs-on: ubuntu-latest # 這個工作會在一個基於 Ubuntu 的虛擬機器上執行
+  check_syntax: # 工作的名稱
+    runs-on: ubuntu-latest # 工作會在一個基於 Ubuntu 的虛擬機器上執行
 
     # 這個工作的「步驟」(steps)
     steps:
@@ -48,4 +48,4 @@ jobs:
         mkdir -p bin
         find . -name "*.java" -print | xargs javac -d bin
 
-    # 這裡我們不添加任何執行程式碼的步驟，因為您的需求只是檢查語法。
+    # 檢查語法。
